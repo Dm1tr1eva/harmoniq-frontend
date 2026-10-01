@@ -5,6 +5,7 @@ import AuthProvider from "@/components/AuthProvider/AuthProvider";
 import Layout from "@/components/Layout/Layout";
 import TanStackProvider from "@/components/TanStackProvider/TanStackProvider";
 import ToastProvider from "@/components/ToastProvider/ToastProvider";
+import { SITE_NAME, SITE_URL, buildSocialMetadata } from "@/lib/metadata";
 import "modern-normalize/modern-normalize.css";
 import "@/styles/reset.css";
 import "@/styles/base.css";
@@ -22,16 +23,14 @@ const merienda = Merienda({
   weight: ["700", "800"],
 });
 
-const TITLE = "Harmoniq";
+const TITLE = SITE_NAME;
 const DESCRIPTION = "Harmoniq — mindful publishing platform for mental health and well-being";
 
 export const metadata: Metadata = {
   title: TITLE,
   description: DESCRIPTION,
-  openGraph: {
-    title: TITLE,
-    description: DESCRIPTION,
-  },
+  metadataBase: SITE_URL,
+  ...buildSocialMetadata({ title: TITLE, description: DESCRIPTION }),
 };
 
 export default async function RootLayout({

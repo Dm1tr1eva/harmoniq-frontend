@@ -7,6 +7,7 @@ import { ARTICLES_PER_PAGE } from "./constants";
 import { getUserInfo, getUserArticles } from "@/lib/api/serverApi";
 import { getCurrentUserServer } from "./getCurrentUserServer";
 import getQueryClient from "@/lib/api/getQueryClient";
+import { buildSocialMetadata } from "@/lib/metadata";
 import AuthorInfo from "@/components/AuthorInfo/AuthorInfo";
 import AuthorArticlesSection from "./AuthorArticlesSection";
 import css from "./page.module.css";
@@ -38,7 +39,13 @@ export async function generateMetadata({ params }: AuthorPageProps): Promise<Met
   return {
     title,
     description,
-    openGraph: { title, description },
+    ...buildSocialMetadata({
+      title,
+      description,
+      path: `/authors/${id}`,
+      image: `/og/authors/${id}`,
+      type: "profile",
+    }),
   };
 }
 
