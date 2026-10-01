@@ -11,6 +11,7 @@ import {
   getArticles,
   getUserInfo,
 } from "@/lib/api/serverApi";
+import { buildSocialMetadata } from "@/lib/metadata";
 
 import type { Article } from "@/types/article";
 
@@ -47,7 +48,13 @@ export async function generateMetadata({ params }: ArticlePageProps): Promise<Me
   return {
     title,
     description,
-    openGraph: { title, description },
+    ...buildSocialMetadata({
+      title,
+      description,
+      path: `/articles/${id}`,
+      image: `/og/articles/${id}`,
+      type: "article",
+    }),
   };
 }
 
